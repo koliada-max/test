@@ -5,14 +5,11 @@ import InputUi from '../../Ui/InputUi';
 import TitleComponent from '../../Ui/TitleComponent';
 
 interface ToDoPageProps {}
-type Task = {
-  id: number;
-  name: string;
-  date: string;
-};
 
 const ToDoPage: React.FC<ToDoPageProps> = () => {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const taskData = JSON.parse(localStorage.getItem("todo") || "[]")
+
+  const [tasks, setTasks] = React.useState(taskData || [])  
   const [name, setName] = useState('');
   const [date, setDate] = useState('');
   const [editTaskId, setEditTaskId] = useState<number | null>(null);
@@ -42,13 +39,13 @@ const ToDoPage: React.FC<ToDoPageProps> = () => {
   };
 
   const handleEdit = (id: number, name: string, date: string) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) => (task.id === id ? { ...task, name, date } : task))
+    setTasks((prevTasks: { id: number; }[]) =>
+      prevTasks.map((task: { id: number; }) => (task.id === id ? { ...task, name, date } : task))
     );
   };
 
   const handleDelete = (id: number) => {
-    setTasks(tasks.filter((task) => task.id !== id));
+    setTasks(tasks.filter((task: { id: number; }) => task.id !== id));
   };
 
   const handleEditButtonClick = (id: number, name: string, date: string) => {
@@ -56,6 +53,10 @@ const ToDoPage: React.FC<ToDoPageProps> = () => {
     setEditName(name);
     setEditDate(date);
   };
+
+  React.useEffect(() => {
+    localStorage.setItem("todo", JSON.stringify(tasks))
+})
   return (
     <>
       <Header type="home" />
@@ -66,7 +67,7 @@ const ToDoPage: React.FC<ToDoPageProps> = () => {
             <div className="flex lg:justify-between justify-center items-center flex-col-reverse lg:flex-row w-full pt-20 pb-32">
               <div className="lg:w-1/2 w-full flex justify-start pt-8">
                 <ul className="w-full">
-                  {tasks.map((task) => (
+                  {tasks.map((task: any) => (
                     <li
                       key={task.id}
                       className="flex flex-col lg:flex-row py-4 gap-y-5 lg:gap-x-5 text-[#444444] text-xl font-bold tracking-[0.2rem] w-full px-5 justify-around"

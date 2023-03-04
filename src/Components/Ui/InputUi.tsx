@@ -6,7 +6,7 @@ type size = 'sm' | 'md' | 'home' | 'top' | 'todo';
 
 interface InputUiProps {
   title?: string;
-  type: 'text' | 'password' | 'email' | 'number' | 'date';
+  type: string;
   value?: any;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   size?: size;
@@ -15,9 +15,10 @@ interface InputUiProps {
   id?: string;
   htmlFor?: string;
   step?: string;
+  placeholder?: string;
 }
 
-const InputUi: React.FC<InputUiProps> = ({title, type, value, onChange, size, className, name, id, htmlFor, step, ...props}) => {
+const InputUi: React.FC<InputUiProps> = ({title, type, value, onChange, size, className, name, id, htmlFor, step, placeholder, ...props}) => {
   return (
     <label htmlFor={htmlFor} className={clsx("text-[#444444] text-xl font-bold tracking-[0.2rem] w-[70%]", className,
     {
@@ -32,6 +33,7 @@ const InputUi: React.FC<InputUiProps> = ({title, type, value, onChange, size, cl
         onChange={onChange}
         required
         id={id}
+        placeholder={placeholder}
       />
     </label>
   );
