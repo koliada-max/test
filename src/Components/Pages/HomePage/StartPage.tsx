@@ -1,12 +1,12 @@
 import React from 'react';
+import { Button } from '../../Ui/Button';
 import Modal from '../../Ui/Modal';
 import LoginForm from './LoginForm';
 
-interface HomePageProps {}
+interface StartPageProps {}
 
-const HomePage: React.FC<HomePageProps> = () => {
+const StartPage: React.FC<StartPageProps> = () => {
   const [open, setOpen] = React.useState(false);
-  
 
   function closeModal() {
     setOpen(false);
@@ -15,15 +15,10 @@ const HomePage: React.FC<HomePageProps> = () => {
   return (
     <section className="w-full h-screen bg-[#efefef]">
       <div className="container lg:max-w-[1600px] px-10 flex justify-center items-center w-full h-full">
-        <button
-          onClick={() => setOpen(!open)}
-          className="text-base px-[5em] py-[1.5em] bg-[#efefef] text-[#444444] rounded-lg font-bold tracking-[0.2rem] text-center outline-none butt-shadow "
-        >
-          Login
-        </button>
+        <Button title="Login" size="home" onClick={() => setOpen(!open)} />
         {open && (
           <Modal title="Registration" onClick={closeModal}>
-            <LoginForm onClick={closeModal} />
+            <LoginForm />
           </Modal>
         )}
       </div>
@@ -31,4 +26,4 @@ const HomePage: React.FC<HomePageProps> = () => {
   );
 };
 
-export default HomePage;
+export default StartPage;

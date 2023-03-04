@@ -1,12 +1,13 @@
-import React from 'react';
-import { Formik, Form, Field, ErrorMessage, useFormik } from 'formik';
+import React, { useState } from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { format } from 'date-fns';
+import { Link } from 'react-router-dom';
 
-interface LoginFormProps {
-  onClick: () => void;
-}
+interface LoginFormProps {}
 
-const LoginForm: React.FC<LoginFormProps> = ({ onClick }) => {
+const LoginForm: React.FC<LoginFormProps> = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const initialValues = {
     username: '',
     lastName: '',
@@ -33,21 +34,15 @@ const LoginForm: React.FC<LoginFormProps> = ({ onClick }) => {
     }
     if (!values.password) {
       errors.password = 'Required';
+    } else if (values.password.length < 8) {
+      errors.password = 'Password must be at least 8 characters long';
     }
     return errors;
   };
 
-  const formik = useFormik({
-    initialValues: {
-      birthday: ""
-    },
-    onSubmit: (values) => {
-      console.log(values);
-    }
-  });
-
   const handleSubmit = (values: typeof initialValues) => {
-    // Handle form submission
+    setIsLoading(true);
+    console.log(values);
   };
 
   return (
@@ -56,31 +51,55 @@ const LoginForm: React.FC<LoginFormProps> = ({ onClick }) => {
       validate={validate}
       onSubmit={handleSubmit}
     >
-      <Form onSubmit={formik.handleSubmit} className="w-[80%] h-[80%] flex flex-col gap-y-4 justify-evenly items-center py-5">
-        <Field type="text" name="username" placeholder="Username" />
-        <ErrorMessage name="username" component="div" />
-        <Field type="text" name="lastName" placeholder="Last name" />
-        <ErrorMessage name="lastName" component="div" />
-        <Field type="email" name="email" placeholder="Email" />
-        <ErrorMessage name="email" component="div" />
-        <Field
-          type="date"
-          name="birthday"
-          placeholder={format(new Date(), "dd.MM.yyyy ' Birthday '")}
-          onChange={formik.handleChange}
-          value={formik.values.birthday}
-        />
-        <ErrorMessage name="birthday" component="div" />
-        <Field type="password" name="password" placeholder="Password" />
-        <ErrorMessage name="password" component="div" />
-        <button
-          className="w-[80%] p-6 bg-[#444444] text-[#ffffff] rounded-lg font-bold tracking-[0.2rem] text-center outline-none butt-shadow"
-          type="submit"
-          onClick={onClick}
-        >
-          Sign Up
-        </button>
-      </Form>
+      {({ isValid }) => (
+        <Form className="w-[80%] h-[80%] flex flex-col gap-y-4 justify-evenly items-center py-5">
+          <Field type="text" name="username" placeholder="Username" required />
+          <ErrorMessage
+            name="username"
+            component="div"
+            className="text-red-500"
+          />
+          <Field type="text" name="lastName" required placeholder="Last name" />
+          <ErrorMessage
+            name="lastName"
+            component="div"
+            className="text-red-500"
+          />
+          <Field type="email" name="email" required placeholder="Email" />
+          <ErrorMessage name="email" component="div" className="text-red-500" />
+          <Field
+            type="date"
+            name="birthday"
+            required
+            placeholder={format(new Date(), "dd.MM.yyyy 'Birthday'")}
+          />
+          <ErrorMessage
+            name="birthday"
+            component="div"
+            className="text-red-500"
+          />
+          <Field
+            type="password"
+            name="password"
+            required
+            placeholder="Password"
+          />
+          <ErrorMessage
+            name="password"
+            component="div"
+            className="text-red-500"
+          />
+          <Link to="/home" className="w-full flex justify-center">
+            <button
+              className="w-[80%] p-6 bg-[#444444] text-[#ffffff] rounded-lg font-bold tracking-[0.2rem] text-center outline-none butt-shadow"
+              type="submit"
+              disabled={!isValid || isLoading}
+            >
+              {isLoading ? 'Loading...' : 'Sign Up'}
+            </button>
+          </Link>
+        </Form>
+      )}
     </Formik>
   );
 };
