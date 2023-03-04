@@ -105,13 +105,13 @@ const ToDoPage: React.FC<ToDoPageProps> = () => {
                         </>
                       ) : (
                         <div className="flex flex-col w-full gap-y-5">
-                          <div className="flex flex-col lg:flex-row justify-center items-center gap-x-2 h-14">
-                            <span className="task-input w-full lg:w-[75%] h-full flex justify-center items-center">
+                          <div className="flex flex-col lg:flex-row justify-center items-center gap-x-2">
+                            <div className="task-input w-full lg:w-[75%] !h-14 flex justify-center items-center overflow-y-scroll">
                               {task.name}
-                            </span>
-                            <span className="task-input w-full lg:w-[25%] text-sm h-full flex justify-center items-center">
+                            </div>
+                            <div className="task-input w-full lg:w-[25%] text-sm h-full flex justify-center items-center">
                               {task.date ? task.date : 'No date'}
-                            </span>
+                            </div>
                           </div>
                           <div className="flex justify-end items-end gap-x-5">
                             <Button
