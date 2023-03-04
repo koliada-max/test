@@ -52,7 +52,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
       onSubmit={handleSubmit}
     >
       {({ isValid }) => (
-        <Form className="w-[80%] h-[80%] flex flex-col gap-y-4 justify-evenly items-center py-5">
+        <Form className="w-[80%] h-[85%] flex flex-col gap-y-4 justify-evenly items-center py-5">
           <Field type="text" name="username" placeholder="Username" required />
           <ErrorMessage
             name="username"
@@ -72,6 +72,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
             name="birthday"
             required
             placeholder={format(new Date(), "dd.MM.yyyy 'Birthday'")}
+            className="p-4"
           />
           <ErrorMessage
             name="birthday"
@@ -91,7 +92,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
           />
           <Link to="/home" className="w-full flex justify-center">
             <button
-              className="w-[80%] p-6 bg-[#444444] text-[#ffffff] rounded-lg font-bold tracking-[0.2rem] text-center outline-none butt-shadow"
+              className="w-[80%] p-4 bg-[#444444] text-[#ffffff] rounded-lg font-bold tracking-[0.2rem] text-center outline-none butt-shadow"
               type="submit"
               disabled={!isValid || isLoading}
             >
