@@ -105,7 +105,7 @@ const ToDoPage: React.FC<ToDoPageProps> = () => {
                         </>
                       ) : (
                         <div className="flex flex-col w-full gap-y-5">
-                          <div className="flex justify-center items-center gap-x-2 h-14">
+                          <div className="flex flex-col lg:flex-row justify-center items-center gap-x-2 h-14">
                             <span className="task-input w-full lg:w-[75%] h-full flex justify-center items-center">
                               {task.name}
                             </span>
