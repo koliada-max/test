@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useContext, useState } from 'react';
+import React, { PropsWithChildren, useContext, useState, useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import StartPage from './Components/Pages/HomePage/StartPage';
@@ -7,6 +7,7 @@ import Converter from './Components/Pages/Converter/Converter';
 import ToDoPage from './Components/Pages/ToDoPage/ToDoPage';
 import Weather from './Components/Pages/Weather/Weather';
 import { AppContext } from './context';
+import { LoginPage } from './Components/Pages';
 
 const ProtectedRoute = ({ children }: PropsWithChildren) => {
   const { isAuthorized } = useContext(AppContext);
@@ -15,7 +16,14 @@ const ProtectedRoute = ({ children }: PropsWithChildren) => {
 };
 
 const App = () => {
-  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState(() => {
+    const storedValue = localStorage.getItem('isAuthorized');
+    return storedValue ? JSON.parse(storedValue) : false;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('isAuthorized', JSON.stringify(isAuthorized));
+  }, [isAuthorized]);
 
   return (
     <AppContext.Provider value={{ isAuthorized }}>
@@ -23,6 +31,10 @@ const App = () => {
         <Route
           path="/"
           element={<StartPage handleAuthorized={setIsAuthorized} />}
+        />
+        <Route
+          path="/login"
+          element={<LoginPage setLoggedIn={setIsAuthorized} />}
         />
         <Route
           path="/home"

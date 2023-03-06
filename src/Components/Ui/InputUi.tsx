@@ -11,6 +11,7 @@ interface InputUiProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   size?: size;
   className?: string;
+  required?: boolean;
   name?: string;
   id?: string;
   htmlFor?: string;
@@ -18,7 +19,7 @@ interface InputUiProps {
   placeholder?: string;
 }
 
-const InputUi: React.FC<InputUiProps> = ({title, type, value, onChange, size, className, name, id, htmlFor, step, placeholder, ...props}) => {
+const InputUi: React.FC<InputUiProps> = ({title, type, value, onChange, size, className, required, name, id, htmlFor, step, placeholder, ...props}) => {
   return (
     <label htmlFor={htmlFor} className={clsx("text-[#444444] text-xl font-bold tracking-[0.2rem] w-[70%]", className,
     {
@@ -31,7 +32,7 @@ const InputUi: React.FC<InputUiProps> = ({title, type, value, onChange, size, cl
         step={step}
         value={value}
         onChange={onChange}
-        required
+        required={required}
         id={id}
         placeholder={placeholder}
       />

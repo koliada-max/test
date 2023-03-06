@@ -55,6 +55,7 @@ const Weather: React.FC<WeatherProps> = () => {
                   id="city"
                   name="city"
                   value={city}
+                  required={true}
                   onChange={(event) => setCity(event.target.value)}
                 />
               </div>

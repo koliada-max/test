@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
 import { Button } from '../../Ui/Button';
-import Modal from '../../Ui/Modal';
-import LoginPage from './LoginPage';
 import { AppContext } from '../../../context';
+import { Link } from 'react-router-dom';
 
 interface StartPageProps {
   handleAuthorized(loggedIn: boolean): void;
@@ -13,35 +12,24 @@ const StartPage: React.FC<StartPageProps> = ({
 }: StartPageProps) => {
   const { isAuthorized } = useContext(AppContext);
 
-  const [open, setOpen] = React.useState(false);
-
-  function closeModal() {
-    setOpen(false);
-  }
-
-  const handleSubmit = () => {
-    closeModal();
-  };
-
   return (
     <section className="w-full h-screen bg-[#efefef]">
       <div className="container lg:max-w-[1600px] px-10 flex justify-center items-center w-full h-full">
         {isAuthorized ? (
-          <Button
-            title="Logout"
-            size="home"
-            onClick={() => handleAuthorized(false)}
-          />
-        ) : (
-          <Button title="Login" size="home" onClick={() => setOpen(true)} />
-        )}
-        {open && (
-          <Modal title="Registration" onClick={closeModal}>
-            <LoginPage
-              closeModal={handleSubmit}
-              setLoggedIn={handleAuthorized}
+          <div className="flex flex-col lg:flex-row gap-y-10 lg:gap-x-10">
+            <Button
+              title="Logout"
+              size="home"
+              onClick={() => handleAuthorized(false)}
             />
-          </Modal>
+            <Link to="/home">
+              <Button title="Go to HomePage" size="home" />
+            </Link>
+          </div>
+        ) : (
+          <Link to="/login">
+            <Button title="Login" size="home" />
+          </Link>
         )}
       </div>
     </section>

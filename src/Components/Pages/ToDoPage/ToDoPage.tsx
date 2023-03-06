@@ -142,10 +142,10 @@ const ToDoPage: React.FC<ToDoPageProps> = () => {
               <div className="lg:w-1/2 w-full flex justify-center">
                 <form onSubmit={handleSubmit}>
                   <div>
-                    <InputUi title="Task:" type='text' value={name} onChange={(e) => setName(e.target.value)} />
+                    <InputUi title="Task:" type='text' value={name} onChange={(e) => setName(e.target.value)} required={true} />
                   </div>
                   <div>
-                    <InputUi title="Data:" type='date' value={date} onChange={(e) => setDate(e.target.value)} />
+                    <InputUi title="Data:" type='date' value={date} onChange={(e) => setDate(e.target.value)} required={false} />
                   </div>
                   <div className="flex justify-center items-center">
                     <Button title="Add new Task" type="submit" size="top" />

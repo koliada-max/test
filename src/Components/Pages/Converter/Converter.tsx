@@ -58,6 +58,7 @@ const Converter: React.FC<ConverterProps> = React.memo(() => {
                   value={euro}
                   onChange={handleEuroChange}
                   step="0.01"
+                  required={true}
                 />
               </div>
               <div className="pb-10 text-[#444444] text-lgtext-base sm:text-lg font-bold tracking-[0.2rem]">
@@ -65,6 +66,7 @@ const Converter: React.FC<ConverterProps> = React.memo(() => {
                   title="Dollar:"
                   type="number"
                   value={dollar}
+                  
                   onChange={handleDollarChange}
                   step="0.01"
                 />
