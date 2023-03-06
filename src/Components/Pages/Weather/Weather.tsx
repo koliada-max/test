@@ -35,7 +35,6 @@ const Weather: React.FC<WeatherProps> = () => {
     }
   };
 
-  console.log(weatherData);
 
   return (
     <>

@@ -53,7 +53,6 @@ const LoginPage: React.FC<LoginPageProps> = ({ setLoggedIn }) => {
   const navigate = useNavigate();
 
   const handleSubmit = (values: typeof formData, actions: any) => {
-    console.log(values);
     actions.setSubmitting(false);
     setLoggedIn(true);
     navigate('/home');
