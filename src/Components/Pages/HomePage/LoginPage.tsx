@@ -88,7 +88,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ setLoggedIn }) => {
                       />
                     ))}
 
-                    <div className="relative w-full">
+                    <div className="relative w-full !text-[#444444]">
                       <Field
                         type={showPassword ? 'text' : 'password'}
                         name="password"
